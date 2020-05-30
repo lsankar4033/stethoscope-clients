@@ -1,0 +1,6 @@
+pytest==5.4.1
+pytest-trio==0.6.0
+git+https://github.com/ethereum/eth2.0-specs@v0.12.0
+git+https://github.com/protolambda/eth2fastspec
+pyrum==0.2.1
+trio==0.13.0
