@@ -38,7 +38,7 @@ do
 done
 
 docker pull lsankar/minimal-prysm-beacon-chain:latest
-docker create --name prysm -p $TCP:$TCP -p $UDP:$UDP \
+docker create --name prysm -p $TCP:$TCP -p $UDP:$UDP lsankar/minimal-prysm-beacon-chain \
   --interop-genesis-state /beacon_state.ssz
   --p2p-host-ip $IP
   --p2p-priv-key /privkey.txt
