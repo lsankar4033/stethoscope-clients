@@ -13,24 +13,24 @@ def start_arg_list(config: InstanceConfig):
     ]
 
 
-def start_instance(instance_config: InstanceConfig, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL):
+def start_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
     start_script = f'clients/{instance_config.client}/start.sh'
     output = subprocess.run(
         ['sh', start_script] + start_arg_list(instance_config),
         stdout=stdout,
-        stderr=stderr,
+        stderr=subprocess.STDOUT,
         text=True
     )
-    if output.stdout is not None and len(output.stdout) > 0:
+    if output.returncode != 0:
         print(output.stdout)
 
 
-def stop_instance(instance_config: InstanceConfig, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL):
+def stop_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
     output = subprocess.run(
         ['sh', f'clients/{instance_config.client}/stop.sh'],
         stdout=stdout,
-        stderr=stderr,
+        stderr=subprocess.STDOUT,
         text=True
     )
-    if output.stdout is not None and len(output.stdout) > 0:
+    if output.returncode != 0:
         print(output.stdout)
