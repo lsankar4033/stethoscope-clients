@@ -39,13 +39,15 @@ done
 
 docker pull lsankar/minimal-prysm-beacon-chain:latest
 docker create --name prysm -p $TCP:$TCP -p $UDP:$UDP lsankar/minimal-prysm-beacon-chain \
-  --interop-genesis-state /beacon_state.ssz
-  --p2p-host-ip $IP
-  --p2p-priv-key /privkey.txt
-  --p2p-tcp-port $TCP
-  --p2p-udp-port $UDP
-  --minimal-config
-  --interop-eth1data-votes
+  --interop-genesis-state /beacon_state.ssz \
+  --p2p-local-ip $IP \
+  --p2p-host-ip $IP \
+  --p2p-tcp-port $TCP \
+  --p2p-udp-port $UDP \
+  --force-clear-db \
+  --minimal-config \
+  --interop-eth1data-votes \
+  #--p2p-priv-key /privkey.txt
 
 # Copy beacon state file into the container
 docker cp $BEACON_STATE_PATH prysm:/beacon_state.ssz

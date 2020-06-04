@@ -7,7 +7,7 @@
 TCP=9000
 UDP=9001
 IP='127.0.0.1'
-PRIVATE_KEY='0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+PRIVATE_KEY='eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
 BEACON_STATE_PATH='ssz/tests.ssz'
 
 # Parse arguments
