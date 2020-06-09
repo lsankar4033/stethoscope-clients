@@ -47,13 +47,13 @@ docker create --name prysm -p $TCP:$TCP -p $UDP:$UDP lsankar/minimal-prysm-beaco
   --force-clear-db \
   --minimal-config \
   --interop-eth1data-votes \
-  #--p2p-priv-key /privkey.txt
+  --p2p-priv-key /privkey.txt
 
 # Copy beacon state file into the container
 docker cp $BEACON_STATE_PATH prysm:/beacon_state.ssz
 
 # Copy private key into key file in container
-echo $PRIVATE_KEY > ./tmp.txt
+printf $PRIVATE_KEY > ./tmp.txt
 docker cp ./tmp.txt prysm:/privkey.txt
 rm ./tmp.txt
 
