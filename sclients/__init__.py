@@ -1,12 +1,12 @@
-from clients.runner import (
+from sclients.runner import (
     start_instance, stop_instance
 )
 
-from clients.types import (
+from sclients.types import (
     ENR, InstanceConfig
 )
 
-from clients.rumor import (
+from sclients.rumor import (
     connect_rumor
 )
 

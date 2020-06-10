@@ -1,4 +1,4 @@
-from clients import ENR
+from sclients import ENR
 
 BEACON_STATE_LOCATION = 'ssz/tests.ssz'
 
