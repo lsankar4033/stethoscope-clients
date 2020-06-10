@@ -1,6 +1,8 @@
+from importlib import resources
+
 from sclients import ENR
 
-BEACON_STATE_LOCATION = 'ssz/tests.ssz'
+BEACON_STATE_LOCATION = './tests/ssz/tests.ssz'
 
 # NOTE: currently identical to the ENR in single_client_genesis suite, but maybe not this in the future
 TEST_ENR_DICT = {

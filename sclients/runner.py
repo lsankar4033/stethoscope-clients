@@ -15,7 +15,7 @@ def _start_arg_list(config: InstanceConfig):
 
 
 def start_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
-    with resources.path(f'sclients.bin.{instance_config.client}', 'start') as start_path:
+    with resources.path(f'sclients.bin', f'{instance_config.client}_start') as start_path:
         output = subprocess.run(
             ['bash', start_path] + _start_arg_list(instance_config),
             stdout=stdout,
@@ -27,7 +27,7 @@ def start_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
 
 
 def stop_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
-    with resources.path(f'sclients.bin.{instance_config.client}', 'stop') as stop_path:
+    with resources.path(f'sclients.bin', f'{instance_config.client}_stop') as stop_path:
         output = subprocess.run(
             ['bash', stop_path],
             stdout=stdout,

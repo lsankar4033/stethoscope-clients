@@ -1,4 +1,4 @@
-#-!/bin/bash
+#!/bin/bash
 #
 # Startup script for the prysm client
 
@@ -8,7 +8,7 @@ TCP=9000
 UDP=9001
 IP='127.0.0.1'
 PRIVATE_KEY='eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-BEACON_STATE_PATH='ssz/tests.ssz'
+BEACON_STATE_PATH=''
 
 # Parse arguments
 for arg in "$@"

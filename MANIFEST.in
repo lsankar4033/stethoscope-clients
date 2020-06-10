@@ -1,1 +1,1 @@
-recursive-include clients/bin *
+recursive-include sclients/bin *

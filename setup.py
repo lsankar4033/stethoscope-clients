@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md", "rt", encoding="utf8") as f:
     readme = f.read()
@@ -6,7 +6,7 @@ with open("README.md", "rt", encoding="utf8") as f:
 setup(
     name="stethoscope-clients",
     description="Eth2 clients packaged for networking tests",
-    version="0.0.4",
+    version="0.0.6",
     long_description=readme,
     long_description_content_type="text/markdown",
     author="lsankar4033",
@@ -14,7 +14,7 @@ setup(
     url="https://github.com/lsankar4033/stethoscope-clients",
     python_requires=">=3.8, <4",
     license="MIT",
-    packages=["sclients"],
+    packages=find_packages(exclude=["tests"]),
     tests_require=[
         "pytest>=5.4.1,<6",
         "pytest-trio==0.6.0"
