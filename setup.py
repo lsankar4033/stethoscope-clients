@@ -14,8 +14,8 @@ setup(
     url="https://github.com/lsankar4033/stethoscope-clients",
     python_requires=">=3.8, <4",
     license="MIT",
-    packages=[],
-    py_modules=["clients"],
+    packages=["clients"],
+    py_modules=[],
     tests_require=[
         "pytest>=5.4.1,<6",
         "pytest-trio==0.6.0"

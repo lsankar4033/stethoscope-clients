@@ -1,6 +1,6 @@
 import subprocess
 
-from lib.types import InstanceConfig
+from clients.types import InstanceConfig
 
 
 def _start_arg_list(config: InstanceConfig):
