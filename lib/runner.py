@@ -3,7 +3,7 @@ import subprocess
 from lib.types import InstanceConfig
 
 
-def start_arg_list(config: InstanceConfig):
+def _start_arg_list(config: InstanceConfig):
     return [
         f'--tcp={config.enr.tcp}',
         f'--udp={config.enr.udp}',
@@ -14,9 +14,9 @@ def start_arg_list(config: InstanceConfig):
 
 
 def start_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
-    start_script = f'clients/{instance_config.client}/start.sh'
+    start_script = f'bin/{instance_config.client}/start'
     output = subprocess.run(
-        ['sh', start_script] + start_arg_list(instance_config),
+        ['bash', start_script] + _start_arg_list(instance_config),
         stdout=stdout,
         stderr=subprocess.STDOUT,
         text=True
@@ -27,7 +27,7 @@ def start_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
 
 def stop_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
     output = subprocess.run(
-        ['sh', f'clients/{instance_config.client}/stop.sh'],
+        ['bash', f'bin/{instance_config.client}/stop'],
         stdout=stdout,
         stderr=subprocess.STDOUT,
         text=True
