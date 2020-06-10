@@ -3,9 +3,8 @@ import os
 from pyrum import SubprocessConn, Rumor
 import trio
 
-from lib.runner import start_instance, stop_instance
-from lib.types import InstanceConfig
-from tests.helpers import connect_rumor, TEST_ENR, BEACON_STATE_LOCATION
+from sclients import start_instance, stop_instance, connect_rumor, InstanceConfig
+from tests.constants import TEST_ENR, BEACON_STATE_LOCATION
 
 
 async def test_lighthouse():
