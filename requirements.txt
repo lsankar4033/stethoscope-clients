@@ -4,3 +4,4 @@ git+https://github.com/ethereum/eth2.0-specs@v0.12.0
 pytest-trio==0.6.0
 pyrum==0.2.1
 trio==0.15.0
+tenacity=6.2.0
