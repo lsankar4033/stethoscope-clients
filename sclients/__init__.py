@@ -1,5 +1,5 @@
 from sclients.runner import (
-    start_instance, stop_instance
+    start_instance, stop_instance, SUPPORTED_CLIENTS
 )
 
 from sclients.types import (
@@ -13,6 +13,7 @@ from sclients.rumor import (
 __all__ = [
     'start_instance',
     'stop_instance',
+    'SUPPORTED_CLIENTS',
     'ENR',
     'InstanceConfig',
     'connect_rumor'

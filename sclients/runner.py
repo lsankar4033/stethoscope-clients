@@ -3,6 +3,8 @@ import subprocess
 
 from sclients.types import InstanceConfig
 
+SUPPORTED_CLIENTS = set(['prysm', 'lighthouse'])
+
 
 def _start_arg_list(config: InstanceConfig):
     return [
