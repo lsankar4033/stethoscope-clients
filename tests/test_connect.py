@@ -41,5 +41,4 @@ async def test_prysm():
                 nursery.cancel_scope.cancel()
 
     finally:
-        print('normally the instance would be stopped here')
-        # stop_instance(config)
+        stop_instance(config)

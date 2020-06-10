@@ -1,3 +1,6 @@
+from tenacity import retry, wait_fixed, stop_after_delay
+import trio
+
 from lib.types import ENR
 
 BEACON_STATE_LOCATION = 'ssz/tests.ssz'
@@ -45,8 +48,8 @@ def write_beacon_state():
     return state
 
 
+@retry(sleep=trio.sleep, wait=wait_fixed(1), stop=stop_after_delay(10))
 async def connect_rumor(rumor, enr):
-    # NOTE: duplicated in scripts/lib.py
     await rumor.host.start()
     peer_id = await rumor.peer.connect(enr).peer_id()
     return peer_id
