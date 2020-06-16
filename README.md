@@ -47,12 +47,12 @@ try:
 	# This block will eventually be encapsulated in `connect_rumor`
 	async with SubprocessConn(cmd='rumor bare') as conn:
 		async with trio.open_nursery() as nursery:
-       	rumor = Rumor(conn, nursery)
-       	client_peer_id = await connect_rumor(rumor, enr_str)
+       			rumor = Rumor(conn, nursery)
+       			client_peer_id = await connect_rumor(rumor, enr_str)
        	
-       	# Insert your rumor interactions with client_peer_id
+		       	# Insert your rumor interactions with client_peer_id
        	
-       	nursery.cancel_scope.cancel()
+       			nursery.cancel_scope.cancel()
        	
  finally:
  	stop_instance(client_config)
