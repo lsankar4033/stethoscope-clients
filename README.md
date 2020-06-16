@@ -10,6 +10,11 @@ To be platform independent, clients are run via Docker.
 
 To connect with and drive clients, we use [rumor](https://github.com/protolambda/rumor), specifically the [python interface](https://github.com/protolambda/pyrum).
 
+## Installation
+```
+pip install stethoscope-clients
+```
+
 ## Usage
 The key methods in this library are `start_instance`, `stop_instance`, and `connect_rumor`. See below for a full sample usage:
 
