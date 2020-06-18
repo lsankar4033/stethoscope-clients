@@ -22,7 +22,7 @@ async def test_lighthouse():
                 nursery.cancel_scope.cancel()
 
     finally:
-        stop_instance(config)
+        stop_instance(config.client)
 
 
 async def test_prysm():
@@ -40,4 +40,4 @@ async def test_prysm():
                 nursery.cancel_scope.cancel()
 
     finally:
-        stop_instance(config)
+        stop_instance(config.client)

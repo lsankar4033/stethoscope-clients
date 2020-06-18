@@ -28,8 +28,8 @@ def start_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
             print(output.stdout)
 
 
-def stop_instance(instance_config: InstanceConfig, stdout=subprocess.PIPE):
-    with resources.path(f'sclients.bin', f'{instance_config.client}_stop') as stop_path:
+def stop_instance(client: str, stdout=subprocess.PIPE):
+    with resources.path(f'sclients.bin', f'{client}_stop') as stop_path:
         output = subprocess.run(
             ['bash', stop_path],
             stdout=stdout,
