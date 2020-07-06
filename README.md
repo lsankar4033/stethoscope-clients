@@ -1,5 +1,7 @@
 # stethoscope-clients
 
+[![Build](https://travis-ci.com/lsankar4033/stethoscope-clients.svg?branch=master)](https://travis-ci.com/lsankar4033/stethoscope-clients.svg?branch=master)
+
 A process runner in python for Eth 2.0 clients. Designed for use with [stethoscope](https://github.com/lsankar4033/stethoscope).
 
 ## Background
