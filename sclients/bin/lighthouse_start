@@ -45,7 +45,7 @@ docker create --name lighthouse -p $TCP:$TCP -p $UDP:$UDP sigp/lighthouse:latest
   lighthouse bn --testnet-dir /testnet \
     --spec minimal \
     --dummy-eth1 \
-    --port $TCP \
+    --enr-tcp-port $TCP \
     --enr-udp-port $UDP \
     --enr-address $IP \
     --p2p-priv-key $PRIVATE_KEY"
