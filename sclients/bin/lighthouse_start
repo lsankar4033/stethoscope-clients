@@ -37,21 +37,28 @@ do
     esac
 done
 
-# Create lighthouse container
 docker pull sigp/lighthouse:latest
 docker create --name lighthouse -p $TCP:$TCP -p $UDP:$UDP sigp/lighthouse:latest bin/bash -c \
   "lcli --spec minimal new-testnet --testnet-dir /testnet --deposit-contract-address 0000000000000000000000000000000000000000 && \
   cp /genesis.ssz /testnet/genesis.ssz && \
+  mkdir /network && \
+  cp /key /network/key && \
   lighthouse bn --testnet-dir /testnet \
     --spec minimal \
     --dummy-eth1 \
     --enr-tcp-port $TCP \
     --enr-udp-port $UDP \
     --enr-address $IP \
-    --p2p-priv-key $PRIVATE_KEY"
+    --network-dir /network \
+    --debug-level debug"
 
 # Copy beacon state file into the container
 docker cp $BEACON_STATE_PATH lighthouse:/genesis.ssz
+
+# Copy private key into key file. Note that we do a reverse hexdump here
+echo $PRIVATE_KEY | xxd -r -p > ./key
+docker cp ./key lighthouse:/key
+rm ./key
 
 # Start the container
 docker start lighthouse
