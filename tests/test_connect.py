@@ -8,7 +8,6 @@ from tests.constants import TEST_ENR, BEACON_STATE_LOCATION
 
 async def test_lighthouse():
     config = InstanceConfig('lighthouse', BEACON_STATE_LOCATION, TEST_ENR)
-
     start_instance(config)
 
     try:
