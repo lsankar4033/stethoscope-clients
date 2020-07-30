@@ -37,19 +37,24 @@ do
 done
 
 docker pull sigp/lighthouse:latest
+
+CREATE_TESTNET_DIR="lcli --spec minimal new-testnet --testnet-dir /testnet --deposit-contract-address 0000000000000000000000000000000000000000"
+MOVE_GENESIS_TO_TESTNET_DIR="mv /genesis.ssz /testnet/genesis.ssz"
+PREPARE_NETWORK_DIR="mkdir /network && mv /key /network/key"
+START_LIGHTHOUSE_BN="lighthouse bn --testnet-dir /testnet \
+  --spec minimal \
+  --dummy-eth1 \
+  --enr-tcp-port $TCP \
+  --enr-udp-port $UDP \
+  --enr-address $IP \
+  --network-dir /network \
+  --debug-level debug"
+
 docker create --name lighthouse -p $TCP:$TCP -p $UDP:$UDP sigp/lighthouse:latest bin/bash -c \
-  "lcli --spec minimal new-testnet --testnet-dir /testnet --deposit-contract-address 0000000000000000000000000000000000000000 && \
-  mv /genesis.ssz /testnet/genesis.ssz && \
-  mkdir /network && \
-  mv /key /network/key && \
-  lighthouse bn --testnet-dir /testnet \
-    --spec minimal \
-    --dummy-eth1 \
-    --enr-tcp-port $TCP \
-    --enr-udp-port $UDP \
-    --enr-address $IP \
-    --network-dir /network \
-    --debug-level debug"
+  "$CREATE_TESTNET_DIR && \
+  $MOVE_GENESIS_TO_TESTNET_DIR && \
+  $PREPARE_NETWORK_DIR && \
+  $START_LIGHTHOUSE_BN"
 
 # Copy beacon state file into the container
 docker cp $BEACON_STATE_PATH lighthouse:/genesis.ssz
