@@ -20,7 +20,7 @@ setup(
         "pytest-trio==0.6.0"
     ],
     install_requires=[
-        "pyrum>=0.2.1,<0.3.0",
+        "pyrum>=0.3.0,<0.4.0",
         "pytest-trio==0.6.0",
         "trio==0.15.0",
         "tenacity==6.2.0"
