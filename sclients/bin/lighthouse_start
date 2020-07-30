@@ -2,13 +2,12 @@
 #
 # Startup script for the lighthouse client
 
-# TODO: use an image name that's passed in! To allow multiple lighthouse clients
 # Default values of arguments
 TCP=9000
 UDP=9001
 IP='127.0.0.1'
 PRIVATE_KEY='eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-BEACON_STATE_PATH=''
+BEACON_STATE_PATH='tests/ssz/tests.ssz'
 
 # Parse arguments
 for arg in "$@"
