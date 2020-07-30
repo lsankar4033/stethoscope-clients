@@ -6,13 +6,12 @@ import trio
 from sclients import start_instance, stop_instance, connect_rumor, InstanceConfig
 from tests.constants import TEST_ENR, BEACON_STATE_LOCATION
 
-
 async def test_lighthouse():
     config = InstanceConfig('lighthouse', BEACON_STATE_LOCATION, TEST_ENR)
     start_instance(config)
 
     try:
-        async with SubprocessConn(cmd='rumor bare') as conn:
+        async with SubprocessConn(cmd='rumor bare --level=trace') as conn:
             async with trio.open_nursery() as nursery:
                 rumor = Rumor(conn, nursery)
                 peer_id = await connect_rumor(rumor, TEST_ENR.enr)
@@ -30,7 +29,7 @@ async def test_prysm():
     start_instance(config)
 
     try:
-        async with SubprocessConn(cmd='rumor bare') as conn:
+        async with SubprocessConn(cmd='rumor bare --level=trace') as conn:
             async with trio.open_nursery() as nursery:
                 rumor = Rumor(conn, nursery)
                 peer_id = await connect_rumor(rumor, TEST_ENR.enr)

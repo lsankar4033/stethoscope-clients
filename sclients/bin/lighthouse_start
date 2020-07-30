@@ -2,13 +2,12 @@
 #
 # Startup script for the lighthouse client
 
-# TODO: use an image name that's passed in! To allow multiple lighthouse clients
 # Default values of arguments
 TCP=9000
 UDP=9001
 IP='127.0.0.1'
 PRIVATE_KEY='eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-BEACON_STATE_PATH=''
+BEACON_STATE_PATH='tests/ssz/tests.ssz'
 
 # Parse arguments
 for arg in "$@"
@@ -37,21 +36,33 @@ do
     esac
 done
 
-# Create lighthouse container
 docker pull sigp/lighthouse:latest
+
+CREATE_TESTNET_DIR="lcli --spec minimal new-testnet --testnet-dir /testnet --deposit-contract-address 0000000000000000000000000000000000000000"
+MOVE_GENESIS_TO_TESTNET_DIR="mv /genesis.ssz /testnet/genesis.ssz"
+PREPARE_NETWORK_DIR="mkdir /network && mv /key /network/key"
+START_LIGHTHOUSE_BN="lighthouse bn --testnet-dir /testnet \
+  --spec minimal \
+  --dummy-eth1 \
+  --enr-tcp-port $TCP \
+  --enr-udp-port $UDP \
+  --enr-address $IP \
+  --network-dir /network \
+  --debug-level debug"
+
 docker create --name lighthouse -p $TCP:$TCP -p $UDP:$UDP sigp/lighthouse:latest bin/bash -c \
-  "lcli --spec minimal new-testnet --testnet-dir /testnet --deposit-contract-address 0000000000000000000000000000000000000000 && \
-  cp /genesis.ssz /testnet/genesis.ssz && \
-  lighthouse bn --testnet-dir /testnet \
-    --spec minimal \
-    --dummy-eth1 \
-    --port $TCP \
-    --enr-udp-port $UDP \
-    --enr-address $IP \
-    --p2p-priv-key $PRIVATE_KEY"
+  "$CREATE_TESTNET_DIR && \
+  $MOVE_GENESIS_TO_TESTNET_DIR && \
+  $PREPARE_NETWORK_DIR && \
+  $START_LIGHTHOUSE_BN"
 
 # Copy beacon state file into the container
 docker cp $BEACON_STATE_PATH lighthouse:/genesis.ssz
+
+# Copy private key into key file. Note that we do a reverse hexdump here
+echo $PRIVATE_KEY | xxd -r -p > ./key
+docker cp ./key lighthouse:/key
+rm ./key
 
 # Start the container
 docker start lighthouse
