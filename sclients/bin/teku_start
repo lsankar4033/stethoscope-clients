@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Startup script for the teku client
+
+docker pull pegasyseng/teku
+docker create --name teku -p 9000:9000 pegasyseng/teku:latest \
+  --initial-state=/beacon_state.ssz \
+  --p2p-port=9000 \
+  --p2p-advertised-ip=127.0.0.1 \
+  --p2p-private-key-file=/privkey.key \
+  --p2p-snappy-enabled=true \
+  --network=minimal \
+  --logging=ALL
+
+# Copy beacon state file into the container
+docker cp tests/ssz/tests.ssz teku:/beacon_state.ssz
+
+# Copy private key file into the container
+docker cp tmp/privkey.key teku:/privkey.key
+
+docker start teku
