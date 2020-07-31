@@ -2,20 +2,53 @@
 #
 # Startup script for the teku client
 
+# Default values of arguments
+TCP=9000
+IP='127.0.0.1'
+PRIVATE_KEY='eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+BEACON_STATE_PATH='tests/ssz/tests.ssz'
+
+# Parse arguments
+for arg in "$@"
+do
+    case $arg in
+      -t=*|--tcp=*)
+        TCP="${arg#*=}"
+        shift
+        ;;
+      -i|--ip=*)
+        IP="${arg#*=}"
+        shift
+        ;;
+      -p|--private-key=*)
+        PRIVATE_KEY="${arg#*=}"
+        shift
+        ;;
+      -b|--beacon-state-path=*)
+        BEACON_STATE_PATH="${arg#*=}"
+        shift
+        ;;
+    esac
+done
+
 docker pull pegasyseng/teku
-docker create --name teku -p 9000:9000 pegasyseng/teku:latest \
+docker create --name teku -p $TCP:$TCP pegasyseng/teku:latest \
   --initial-state=/beacon_state.ssz \
-  --p2p-port=9000 \
-  --p2p-advertised-ip=127.0.0.1 \
+  --p2p-port=$TCP \
+  --p2p-advertised-ip=$IP \
   --p2p-private-key-file=/privkey.key \
   --p2p-snappy-enabled=true \
+  --p2p-discovery-enabled=true \
   --network=minimal \
   --logging=ALL
 
 # Copy beacon state file into the container
-docker cp tests/ssz/tests.ssz teku:/beacon_state.ssz
+docker cp $BEACON_STATE_PATH teku:/beacon_state.ssz
 
-# Copy private key file into the container
-docker cp tmp/privkey.key teku:/privkey.key
+# Copy private key with protobuf prefix into the container
+PROTO_PRIVATE_KEY=0x0802122100$PRIVATE_KEY
+printf $PROTO_PRIVATE_KEY > ./tmp.txt
+docker cp ./tmp.txt teku:/privkey.key
+rm ./tmp.txt
 
 docker start teku

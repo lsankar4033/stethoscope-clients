@@ -40,3 +40,23 @@ async def test_prysm():
 
     finally:
         stop_instance(config.client)
+
+
+async def test_teku():
+    config = InstanceConfig('teku', BEACON_STATE_LOCATION, TEST_ENR)
+    start_instance(config)
+
+    try:
+        async with SubprocessConn(cmd='rumor bare --level=trace') as conn:
+            async with trio.open_nursery() as nursery:
+                rumor = Rumor(conn, nursery)
+                await trio.sleep(5)
+                peer_id = await connect_rumor(rumor, 'teku', TEST_ENR)
+
+                # NOTE: this may not be the exact test
+                assert peer_id is not None
+                nursery.cancel_scope.cancel()
+
+    finally:
+        stop_instance(config.client)
+
