@@ -6,7 +6,7 @@ with open("README.md", "rt", encoding="utf8") as f:
 setup(
     name="stethoscope-clients",
     description="Eth2 clients packaged for networking tests",
-    version="0.1.3",
+    version="0.1.4",
     long_description=readme,
     long_description_content_type="text/markdown",
     author="lsankar4033",

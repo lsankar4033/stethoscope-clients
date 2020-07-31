@@ -66,7 +66,7 @@ try:
 |---|---|
 | lighthouse | done |
 | prysm | done |
-| teku | in progress |
+| teku | done |
 | nimbus | TODO |
 | lodestar | TODO |
 | cortex | TODO |
