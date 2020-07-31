@@ -14,7 +14,7 @@ async def test_lighthouse():
         async with SubprocessConn(cmd='rumor bare --level=trace') as conn:
             async with trio.open_nursery() as nursery:
                 rumor = Rumor(conn, nursery)
-                peer_id = await connect_rumor(rumor, TEST_ENR.enr)
+                peer_id = await connect_rumor(rumor, 'lighthouse', TEST_ENR)
 
                 # NOTE: this may not be the exact test
                 assert peer_id is not None
@@ -32,7 +32,7 @@ async def test_prysm():
         async with SubprocessConn(cmd='rumor bare --level=trace') as conn:
             async with trio.open_nursery() as nursery:
                 rumor = Rumor(conn, nursery)
-                peer_id = await connect_rumor(rumor, TEST_ENR.enr)
+                peer_id = await connect_rumor(rumor, 'prysm', TEST_ENR)
 
                 # NOTE: this may not be the exact test
                 assert peer_id is not None
