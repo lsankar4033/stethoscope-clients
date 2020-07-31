@@ -8,6 +8,7 @@ class ENR(NamedTuple):
     id: str
     ip: int
     enr: str
+    enr_teku: str # b/c teku uses the same port for both tcp/udp *and* doesn't keep track of attnets on boot
     attnets: str
     eth2: str
 
