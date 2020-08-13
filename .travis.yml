@@ -14,4 +14,4 @@ install:
   - cp ./bin/rumor-v0.2.3-linux-amd64 ./bin/rumor # move rumor into place for test discovery
   - pip install .
 
-script: pytest -s tests/test_connect::test_teku
+script: pytest -s tests/test_connect.py::test_teku
