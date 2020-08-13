@@ -1,11 +1,13 @@
 import os
 
 from pyrum import SubprocessConn, Rumor
+import pytest
 import trio
 
 from sclients import start_instance, stop_instance, connect_rumor, InstanceConfig
 from tests.constants import TEST_ENR, BEACON_STATE_LOCATION
 
+@pytest.mark.skip(reason="lighthouse currently broken")
 async def test_lighthouse():
     config = InstanceConfig('lighthouse', BEACON_STATE_LOCATION, TEST_ENR)
     start_instance(config)
@@ -24,6 +26,7 @@ async def test_lighthouse():
         stop_instance(config.client)
 
 
+@pytest.mark.skip(reason="prysm currently broken")
 async def test_prysm():
     config = InstanceConfig('prysm', BEACON_STATE_LOCATION, TEST_ENR)
     start_instance(config)

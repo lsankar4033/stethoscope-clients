@@ -3,7 +3,7 @@ import subprocess
 
 from sclients.types import InstanceConfig
 
-SUPPORTED_CLIENTS = set(['prysm', 'lighthouse'])
+SUPPORTED_CLIENTS = set(['teku'])
 
 
 def _start_arg_list(config: InstanceConfig):
