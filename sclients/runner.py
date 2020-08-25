@@ -3,7 +3,7 @@ import subprocess
 
 from sclients.types import InstanceConfig
 
-SUPPORTED_CLIENTS = set(['teku'])
+SUPPORTED_CLIENTS = set(['teku', 'lighthouse'])
 
 
 def _start_arg_list(config: InstanceConfig):
